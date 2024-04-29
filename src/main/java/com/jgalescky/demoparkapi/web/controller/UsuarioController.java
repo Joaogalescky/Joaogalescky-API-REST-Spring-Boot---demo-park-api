@@ -25,4 +25,10 @@ public class UsuarioController {
         Usuario user = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(user); //ou ok(T body) ou ok()
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Usuario> updatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
+        Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
+        return ResponseEntity.ok(user); //ou ok(T body) ou ok()
+    }
 }
