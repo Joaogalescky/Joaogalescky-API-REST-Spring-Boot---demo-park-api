@@ -2,6 +2,7 @@ package com.jgalescky.demoparkapi.service;
 
 import com.jgalescky.demoparkapi.entity.Usuario;
 import com.jgalescky.demoparkapi.exception.EntityNotFoundException;
+import com.jgalescky.demoparkapi.exception.PasswordInvalidException;
 import com.jgalescky.demoparkapi.exception.UsernameUniqueViolationException;
 import com.jgalescky.demoparkapi.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +34,11 @@ public class UsuarioService {
     @Transactional
     public Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmarSenha) {
         if (!novaSenha.equals(confirmarSenha)) {
-            throw new RuntimeException("Nova senha não confere com a confirmação de senha.");
+            throw new PasswordInvalidException("Nova senha não confere com a confirmação de senha.");
         }
         Usuario user = buscarPorId(id);
         if (!user.getPassword().equals(senhaAtual)) {
-            throw new RuntimeException("Sua senha não confere.");
+            throw new PasswordInvalidException("Sua senha não confere.");
         }
         user.setPassword(novaSenha);
         return user;

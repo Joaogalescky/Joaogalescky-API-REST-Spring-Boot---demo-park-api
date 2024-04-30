@@ -8,6 +8,7 @@ import com.jgalescky.demoparkapi.web.dto.UsuarioSenhaDto;
 import com.jgalescky.demoparkapi.web.dto.mapper.UsuarioMapper;
 import com.jgalescky.demoparkapi.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -83,6 +84,13 @@ public class UsuarioController {
         // Código 204 - a operação foi bem sucedida, mas não haverá nada no retorno no corpo da resposta
     }
 
+    @Operation(summary = "Listar todos os usuários", description = "Recurso para listar todos os usuários cadastrados",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista com todos os usuários cadastrados",
+                            content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UsuarioResponseDto.class)))
+                    )
+            }
+    )
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDto>> getAll() {
         List<Usuario> users = usuarioService.buscarTodos();
