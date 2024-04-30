@@ -4,6 +4,7 @@ import com.jgalescky.demoparkapi.entity.Usuario;
 import com.jgalescky.demoparkapi.service.UsuarioService;
 import com.jgalescky.demoparkapi.web.dto.UsuarioCreateDto;
 import com.jgalescky.demoparkapi.web.dto.UsuarioResponseDto;
+import com.jgalescky.demoparkapi.web.dto.UsuarioSenhaDto;
 import com.jgalescky.demoparkapi.web.dto.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,9 +33,10 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Usuario> updatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
-        return ResponseEntity.ok(user); //ou ok(T body) ou ok()
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UsuarioSenhaDto dto) {
+        Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
+        return ResponseEntity.noContent().build(); //noContent retorna o código 204
+        // Código 204 - a operação foi bem sucedida, mas não haverá nada no retorno no corpo da resposta
     }
 
     @GetMapping
