@@ -1,7 +1,5 @@
 package com.jgalescky.demoparkapi.jwt;
 
-
-import io.jsonwebtoken.Jwt;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,14 +24,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         final String token = request.getHeader(JwtUtils.JWT_AUTHORIZATIONS);
-        if (token == null || token.startsWith(JwtUtils.JWT_BEARER)) {
+        if (token == null || !token.startsWith(JwtUtils.JWT_BEARER)) {
             log.info("JWT Token está nulo, vazio ou não iniciado com 'Bearer '.");
             filterChain.doFilter(request, response);
             return;
         }
 
         if (!JwtUtils.isTokenValid(token)) {
-            log.info("JWT Token está inválido ou experirado");
+            log.warn("JWT Token está inválido ou expirado.");
             filterChain.doFilter(request, response);
             return;
         }
