@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Usuarios", description = "Contém todos as operações aos recursos para cadastro, edição e leitura de um usuário.")
+@Tag(name = "Usuarios", description = "Contém todas as operações relativas aos recursos para cadastro, edição e leitura de um usuário.")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/usuarios")
@@ -34,7 +34,7 @@ public class UsuarioController {
                     @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso!",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioResponseDto.class))
                     ),
-                    @ApiResponse(responseCode = "409", description = "Usuário e e-mail já cadastrado no sistema",
+                    @ApiResponse(responseCode = "409", description = "Usuário e-mail já cadastrado no sistema",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     ),
                     @ApiResponse(responseCode = "422", description = "Recurso não processado por dados de entrada inválidos",
@@ -73,6 +73,9 @@ public class UsuarioController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     ),
                     @ApiResponse(responseCode = "404", description = "Recurso não encontrado",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
+                    ),
+                    @ApiResponse(responseCode = "422", description = "Campos inválidos ou mal formatados",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
