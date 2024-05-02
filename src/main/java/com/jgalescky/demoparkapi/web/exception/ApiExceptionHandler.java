@@ -34,14 +34,14 @@ public class ApiExceptionHandler {
 
         log.error("Api Error - ", ex);
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
+                .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage())); // ou ex.getMessage()
     }
 
     // UsernameUniqueViolationException
     @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessage> UniqueViolationException(RuntimeException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
 
         log.error("Api Error - ", ex);
         return ResponseEntity
@@ -58,6 +58,6 @@ public class ApiExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo(s) inválido(s)", result)); // ou ex.getMessage()
+                .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo(s) invalido(s)", result)); // ou ex.getMessage()
     }
 }
