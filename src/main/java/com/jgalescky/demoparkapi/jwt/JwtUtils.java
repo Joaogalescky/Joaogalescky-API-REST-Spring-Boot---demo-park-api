@@ -3,12 +3,10 @@ package com.jgalescky.demoparkapi.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -26,7 +24,7 @@ public class JwtUtils {
     private JwtUtils() {
     }
 
-    private static Key generateKey() {
+    private static javax.crypto.SecretKey generateKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -40,41 +38,43 @@ public class JwtUtils {
     public static JwtToken createToken(String username, String role) {
         Date issuedAt = new Date(); // Data de criação do token
         Date limit = toExpireDate(issuedAt); // Data limite do token
-
         String token = Jwts.builder()
-                .setHeaderParam("typ", "JWT")
+                .header().add("typ", "JWT")
+                .and()
                 .subject(username) //ou username ou id
-                .setIssuedAt(issuedAt)
-                .setExpiration(limit)
-                .signWith(generateKey(), SignatureAlgorithm.HS256)
+                .issuedAt(issuedAt)
+                .expiration(limit)
+                .signWith(generateKey())
                 .claim("role", role)
                 .compact();
         return new JwtToken(token);
     }
 
-    private static Claims getClaimFromToken(String token) {
+    private static Claims getClaimsFromToken(String token) {
         try {
             return Jwts.parser()
-                    .setSigningKey(generateKey()).build()
-                    .parseClaimsJws(refactorToken(token)).getBody();
+                    .verifyWith(generateKey())
+                    .build()
+                    .parseSignedClaims(refactorToken(token)).getPayload();
         } catch (JwtException ex) {
-            log.error(String.format("Token inválido (%s)", ex.getMessage()));
+            log.error(String.format("Token invalido %s", ex.getMessage()));
         }
         return null;
     }
 
     public static String getUsernameFromToken(String token) {
-        return getClaimFromToken(token).getSubject();
+        return getClaimsFromToken(token).getSubject();
     }
 
     public static boolean isTokenValid(String token) {
         try {
             Jwts.parser()
-                    .setSigningKey(generateKey()).build()
-                    .parseClaimsJws(refactorToken(token));
+                    .verifyWith(generateKey())
+                    .build()
+                    .parseSignedClaims(refactorToken(token));
             return true;
         } catch (JwtException ex) {
-            log.error(String.format("Token inválido (%s)", ex.getMessage()));
+            log.error(String.format("Token invalido %s", ex.getMessage()));
         }
         return false;
     }
