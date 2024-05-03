@@ -1,5 +1,6 @@
 package com.jgalescky.demoparkapi.config;
 
+import com.jgalescky.demoparkapi.jwt.JwtAuthenticationEntryPoint;
 import com.jgalescky.demoparkapi.jwt.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,7 @@ public class SpringSecurityConfig {
                         (SessionCreationPolicy.STATELESS)
                 ).addFilterBefore(
                         jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
-                ).build();
+                ).exceptionHandling(ex -> ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint())).build();
     }
 
     @Bean
