@@ -19,7 +19,7 @@ public class JwtUtils {
     public static final String SECRET_KEY = "7h9F2pRkX5zLb6YnD8qAe0tU1w4v3xSf";
     public static final long EXPIRE_DAYS = 0;
     public static final long EXPIRE_HOURS = 0;
-    public static final long EXPIRE_MINUTES = 2;
+    public static final long EXPIRE_MINUTES = 30;
 
     private JwtUtils() {
     }
