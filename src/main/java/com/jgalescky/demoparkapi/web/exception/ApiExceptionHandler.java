@@ -1,5 +1,6 @@
 package com.jgalescky.demoparkapi.web.exception;
 
+import com.jgalescky.demoparkapi.exception.CpfUniqueViolationException;
 import com.jgalescky.demoparkapi.exception.EntityNotFoundException;
 import com.jgalescky.demoparkapi.exception.PasswordInvalidException;
 import com.jgalescky.demoparkapi.exception.UsernameUniqueViolationException;
@@ -52,7 +53,7 @@ public class ApiExceptionHandler {
     }
 
     // UsernameUniqueViolationException
-    @ExceptionHandler(UsernameUniqueViolationException.class)
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
 
         log.error("Api Error - ", ex);
