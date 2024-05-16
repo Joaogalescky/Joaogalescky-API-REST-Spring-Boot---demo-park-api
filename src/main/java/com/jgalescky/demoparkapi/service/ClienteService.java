@@ -3,7 +3,7 @@ package com.jgalescky.demoparkapi.service;
 import com.jgalescky.demoparkapi.entity.Cliente;
 import com.jgalescky.demoparkapi.exception.CpfUniqueViolationException;
 import com.jgalescky.demoparkapi.repository.ClienteRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.jgalescky.demoparkapi.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
