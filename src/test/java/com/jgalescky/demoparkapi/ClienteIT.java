@@ -1,6 +1,7 @@
 package com.jgalescky.demoparkapi;
 
 import com.jgalescky.demoparkapi.web.dto.ClienteCreateDto;
+import com.jgalescky.demoparkapi.web.dto.ClienteResponseDto;
 import com.jgalescky.demoparkapi.web.exception.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,5 +113,22 @@ public class ClienteIT {
         // A classe Assertions = fornece os métodos que vão testar o objeto
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+    }
+
+
+    @Test
+    public void buscarCliente_ComIdExistentePeloAdmin_RetornarClienteStatus200() {
+        ClienteResponseDto responseBody = testClient
+                .get()
+                .uri("/api/v1/clientes/10")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(ClienteResponseDto.class)
+                .returnResult().getResponseBody();
+        // A classe Assertions = fornece os métodos que vão testar o objeto
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getId()).isEqualTo(10);
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
     }
 }
