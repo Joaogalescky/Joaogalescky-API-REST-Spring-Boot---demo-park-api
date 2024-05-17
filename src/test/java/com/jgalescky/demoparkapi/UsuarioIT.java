@@ -356,7 +356,7 @@ public class UsuarioIT {
                 .returnResult().getResponseBody();
         // A classe Assertions = fornece os métodos que vão testar o objeto
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(responseBody.size()).isEqualTo(3);
+        org.assertj.core.api.Assertions.assertThat(responseBody.size()).isEqualTo(9);
     }
 
     @Test
