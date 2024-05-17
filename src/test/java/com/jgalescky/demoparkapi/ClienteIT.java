@@ -2,6 +2,7 @@ package com.jgalescky.demoparkapi;
 
 import com.jgalescky.demoparkapi.web.dto.ClienteCreateDto;
 import com.jgalescky.demoparkapi.web.dto.ClienteResponseDto;
+import com.jgalescky.demoparkapi.web.dto.PageableDto;
 import com.jgalescky.demoparkapi.web.exception.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class ClienteIT {
                 .post()
                 .uri("/api/v1/clientes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "toby@email.com", "123456"))
-                .bodyValue(new ClienteCreateDto("Tobias Ferreira", "93360359089"))
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "maguire@email.com", "123456"))
+                .bodyValue(new ClienteCreateDto("Toby Maguire", "93360359089"))
                 .exchange()
                 .expectStatus().isEqualTo(409)
                 .expectBody(ErrorMessage.class)
@@ -150,6 +151,52 @@ public class ClienteIT {
         ErrorMessage responseBody = testClient
                 .get()
                 .uri("/api/v1/clientes/0")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bia@email.com", "123456"))
+                .exchange()
+                .expectStatus().isForbidden()
+                .expectBody(ErrorMessage.class)
+                .returnResult().getResponseBody();
+        // A classe Assertions = fornece os métodos que vão testar o objeto
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(403);
+    }
+
+    @Test
+    public void buscarClientes_ComPaginacaoPeloAdmin_RetornarClientesComStatus200() {
+        PageableDto responseBody = testClient
+                .get()
+                .uri("/api/v1/clientes")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(PageableDto.class)
+                .returnResult().getResponseBody();
+        // A classe Assertions = fornece os métodos que vão testar o objeto
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getContent()).hasSize(5);
+        org.assertj.core.api.Assertions.assertThat(responseBody.getNumber()).isEqualTo(0);
+        org.assertj.core.api.Assertions.assertThat(responseBody.getTotalPages()).isEqualTo(2);
+
+        responseBody = testClient
+                .get()
+                .uri("/api/v1/clientes?size=2&amp;page=0")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(PageableDto.class)
+                .returnResult().getResponseBody();
+
+        org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
+        org.assertj.core.api.Assertions.assertThat(responseBody.getContent()).hasSize(2);
+        org.assertj.core.api.Assertions.assertThat(responseBody.getNumber()).isEqualTo(0);
+        org.assertj.core.api.Assertions.assertThat(responseBody.getTotalPages()).isEqualTo(3); // Se há 6 clientes, então com size=2, haverá 3 páginas
+    }
+
+    @Test
+    public void buscarClientes_ComPaginacaoPeloCliente_RetornarErrorMessageComStatus403() {
+        ErrorMessage responseBody = testClient
+                .get()
+                .uri("/api/v1/clientes")
                 .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bia@email.com", "123456"))
                 .exchange()
                 .expectStatus().isForbidden()
