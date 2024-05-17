@@ -1,9 +1,6 @@
 package com.jgalescky.demoparkapi.web.exception;
 
-import com.jgalescky.demoparkapi.exception.CpfUniqueViolationException;
-import com.jgalescky.demoparkapi.exception.EntityNotFoundException;
-import com.jgalescky.demoparkapi.exception.PasswordInvalidException;
-import com.jgalescky.demoparkapi.exception.UsernameUniqueViolationException;
+import com.jgalescky.demoparkapi.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -53,7 +50,7 @@ public class ApiExceptionHandler {
     }
 
     // UsernameUniqueViolationException
-    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class, CodigoUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
 
         log.error("Api Error - ", ex);
