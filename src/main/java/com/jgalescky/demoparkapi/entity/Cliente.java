@@ -20,7 +20,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table
+@Table(name = "clientes")
 @EntityListeners(AuditingEntityListener.class)
 public class Cliente implements Serializable {
 
