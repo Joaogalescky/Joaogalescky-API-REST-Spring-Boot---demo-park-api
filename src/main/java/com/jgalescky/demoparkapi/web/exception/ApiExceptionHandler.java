@@ -32,6 +32,17 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
     }
 
+    // ReciboCheckInNotFoundException
+    @ExceptionHandler(ReciboCheckInNotFoundException.class)
+    public ResponseEntity<ErrorMessage> ReciboCheckInNotFoundException(ReciboCheckInNotFoundException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getRecibo()};
+        String message = messageSource.getMessage("exception.reciboCheckInNotFoundException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+    }
+
     // CodigoUniqueViolationException
     @ExceptionHandler(CodigoUniqueViolationException.class)
     public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex, HttpServletRequest request) {
@@ -70,7 +81,7 @@ public class ApiExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND , message));
     }
 
     // UsernameUniqueViolationException
