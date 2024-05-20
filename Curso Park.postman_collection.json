@@ -1,0 +1,539 @@
+{
+	"info": {
+		"_postman_id": "095254df-f6d0-46f4-896f-da6697ea46a6",
+		"name": "Curso Park",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34348800"
+	},
+	"item": [
+		{
+			"name": "Usuarios - Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"robson@email.com\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuarios - Get Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTYyNDc2ODAsImV4cCI6MTcxNjI0OTQ4MCwicm9sZSI6IkFETUlOIn0.0dQOwSmkhHzbpcsqMbyBVUoLXzvkIXgTFWP_sV3R1vE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/usuarios/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"usuarios",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuarios - Update Senha",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmFAZW1haWwuY29tIiwiaWF0IjoxNzE0NzU1MjY4LCJleHAiOjE3MTQ3NTcwNjgsInJvbGUiOiJDTElFTlRFIn0.oON3UUNB_7emradifMgHRWP3L3_ZIJe2r-2rLrqi4o4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept-Charset",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"senhaAtual\":\"123456\",\r\n    \"novaSenha\":\"123456\",\r\n    \"confirmaSenha\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/usuarios/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"usuarios",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuarios - Get All",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTUxMjMxMjYsImV4cCI6MTcxNTEyNDkyNiwicm9sZSI6IkFETUlOIn0.DXsyHCcpSieMYqeFGcNUaT72QYF4Zx9GG0I8lLKSmvY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bear eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTQ2ODU3MjAsImV4cCI6MTcxNDY4NTg0MCwicm9sZSI6IkNMSUVOVEUifQ.1RUi2IqsjG6O7ChrUy1zwkkrhNO13EsKd7kz3RSHJ3U",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"admin@email.com\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clientes - Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb2Jzb25AZW1haWwuY29tIiwiaWF0IjoxNzE1OTUzMDc1LCJleHAiOjE3MTU5NTQ4NzUsInJvbGUiOiJDTElFTlRFIn0.aV3FbMavQlswXkrIB8bioLtL5gokqeUBizTVf_aNrjw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\" : \"Robson Crusué\",\r\n    \"cpf\" : \"72031430076\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clientes - Find All",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTU5MDIyNDAsImV4cCI6MTcxNTkwNDA0MCwicm9sZSI6IkFETUlOIn0.CKBRJoDpvA9N4VG_8rch74c92sFTpuZTDOhtXj_v-V8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/clientes?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clientes - Detalhes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWd1aXJlQGVtYWlsLmNvbSIsImlhdCI6MTcxNTk1MzIyOCwiZXhwIjoxNzE1OTU1MDI4LCJyb2xlIjoiQ0xJRU5URSJ9.URC6T9ivfyRmV0FKR_SqQ621recP-PI4CIo3eBzKKlQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/clientes/detalhes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"clientes",
+						"detalhes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vagas - Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTYyNDUxMDQsImV4cCI6MTcxNjI0NjkwNCwicm9sZSI6IkFETUlOIn0.YTry439HPSVbOhGlfgW_T8K6l0hbqHiEmxJoX8lTQ4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					},
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"A-01\",\r\n    \"status\":\"OCUPADA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vagas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vagas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vagas - Get by Codigo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTYyNDY5MDcsImV4cCI6MTcxNjI0ODcwNywicm9sZSI6IkFETUlOIn0.4iu1Lz2Ektrz2NeysW-BRheglmt4jVpLM-yoGgXc5pI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vagas/A-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vagas",
+						"A-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estacionamento - Check in",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTYyNDY5MDcsImV4cCI6MTcxNjI0ODcwNywicm9sZSI6IkFETUlOIn0.4iu1Lz2Ektrz2NeysW-BRheglmt4jVpLM-yoGgXc5pI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clienteCpf\" : \"40663565081\",\r\n    \"placa\" : \"ABC-1012\",\r\n    \"marca\" : \"TOYOTA\",\r\n    \"modelo\" : \"BANDEIRANTE\",\r\n    \"cor\" : \"BRANCO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/estacionamentos/check-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"estacionamentos",
+						"check-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estacionamento - Check out",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3MTYyNDY5MDcsImV4cCI6MTcxNjI0ODcwNywicm9sZSI6IkFETUlOIn0.4iu1Lz2Ektrz2NeysW-BRheglmt4jVpLM-yoGgXc5pI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/estacionamentos/check-out/20240520-202058",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"estacionamentos",
+						"check-out",
+						"20240520-202058"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estacionamentos - Relatório",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWd1aXJlQGVtYWlsLmNvbSIsImlhdCI6MTcxNjI0NzM3MywiZXhwIjoxNzE2MjQ5MTczLCJyb2xlIjoiQ0xJRU5URSJ9.BuAKnaMdvUUJ0PN4tC6t5u8IVEx7HhvliBi3mKugkJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/estacionamentos/relatorio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"estacionamentos",
+						"relatorio"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
