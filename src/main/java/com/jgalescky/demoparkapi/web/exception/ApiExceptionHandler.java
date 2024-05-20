@@ -21,10 +21,31 @@ public class ApiExceptionHandler {
 
     private final MessageSource messageSource;
 
+    // EntityNotFoundException
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        String message = messageSource.getMessage("exception.entityNotFoundException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+    }
+
+    // CodigoUniqueViolationException
+    @ExceptionHandler(CodigoUniqueViolationException.class)
+    public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        String message = messageSource.getMessage("exception.codigoUniqueViolationException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.CONFLICT, message));
+    }
+
     // AccessDeniedException
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorMessage> accessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
-
         log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
@@ -35,7 +56,6 @@ public class ApiExceptionHandler {
     // PasswordInvalidException
     @ExceptionHandler(PasswordInvalidException.class)
     public ResponseEntity<ErrorMessage> passwordInvalidException(RuntimeException ex, HttpServletRequest request) {
-
         log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -43,21 +63,19 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
 
-    // EntityNotFoundException
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, HttpServletRequest request) {
-
-        log.error("Api Error - ", ex);
+    // VagaDisponivelException
+    @ExceptionHandler(VagaDisponivelException.class)
+    public ResponseEntity<ErrorMessage> vagaDisponivelException(RuntimeException ex, HttpServletRequest request) {
+        String message = messageSource.getMessage("exception.vagaDisponivelException", null, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
     }
 
     // UsernameUniqueViolationException
-    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class, CodigoUniqueViolationException.class})
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
-
         log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
@@ -68,7 +86,6 @@ public class ApiExceptionHandler {
     // MethodArgumentNotValidException
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request, BindingResult result) {
-
         log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
