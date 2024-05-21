@@ -1,4 +1,5 @@
 ﻿# Projeto: API REST e Spring Boot: Aprenda do Zero e na Prática
+[![NPM](https://github.com/Joaogalescky/Joaogalescky-API-REST-Spring-Boot---demo-park-api/blob/main/LICENSE)
 
 # Sobre o projeto
 O projeto API REST e Spring Boot: Aprenda do Zero e na Prática é um projeto de estudo em back-end desenvolvida durante a 7ª sprint da bolsa de estudos de **Back-End SpringBoot AWS 2024**, organizado pela Compass UOL [CompassUOL](https://compass.uol/en/home/) como trilha de estudos.
